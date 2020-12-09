@@ -475,7 +475,7 @@ MonoBehaviour:
   scrollSpeed: 10
   rotDir: 1
   inStage: 0
-  stickLength: 0
+  stickLength: 4
   flipTime: 0.1
 --- !u!114 &4810434615317758359
 MonoBehaviour:

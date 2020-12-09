@@ -30,11 +30,19 @@ public class StickPivots : MonoBehaviour
 
 
     RaycastHit2D hit;
+    RaycastHit2D activeHit;
+    RaycastHit2D staticHit;
+
+    GameObject goal;
 
     void Start()
     {
+        if (GameObject.Find("GOAL"))
+        {
+            goal = GameObject.Find("GOAL");
+        }
         LR = GetComponent<LineRenderer>();
-        stickLength = 1.5f;
+        //stickLength = 1.5f;
     }
 
     public float stickLength;
@@ -45,6 +53,7 @@ public class StickPivots : MonoBehaviour
     bool flipped;
 
     Transform activePivot;
+    Transform staticPivot;
 
     void Update()
     {
@@ -91,6 +100,7 @@ public class StickPivots : MonoBehaviour
         if (qIsPivot)
         {
             activePivot = ePivot;
+            staticPivot = qPivot;
             //trail.position = ePivot.position;
             hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(ePivot.position)), Vector2.zero);
             inStage = hit.collider != null;
@@ -115,6 +125,7 @@ public class StickPivots : MonoBehaviour
         else
         {
             activePivot = qPivot;
+            staticPivot = ePivot;
             //trail.position = qPivot.position;
             hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(qPivot.position)), Vector2.zero);
             inStage = hit.collider != null;
@@ -135,26 +146,52 @@ public class StickPivots : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Mouse0) && !inStage) { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); }//restart. temp die
         }
 
-
-        foreach (EnemyKillScript e in GameObject.Find("Enemies").GetComponentsInChildren<EnemyKillScript>())
+        activeHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(activePivot.position)), Vector2.zero);
+        if (activeHit.collider!=null && activeHit.collider.tag=="SAND")
         {
-            if (Vector3.Distance(activePivot.position, e.transform.position) < .6f)
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                e.killMe = true;
+                activeHit.collider.gameObject.GetComponent<SandScript>().destroy = true;
             }
         }
 
-        foreach (EnergyScript e in GameObject.Find("EnergySpawnPoints").GetComponentsInChildren<EnergyScript>())
+        staticHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(staticPivot.position)), Vector2.zero);
+        if (staticHit.collider==null)
         {
-            if (Vector3.Distance(activePivot.position, e.transform.position) < .7f)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (activeHit.collider != null && activeHit.collider.tag=="GOAL" && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+                if (GameObject.Find("SceneChanger"))
+                {
+                    GameObject.Find("SceneChanger").GetComponent<SceneChanger>().changeIt = true;
+                }
+        }
+
+        if (GameObject.Find("Enemies"))
+        {
+            foreach (EnemyKillScript e in GameObject.Find("Enemies").GetComponentsInChildren<EnemyKillScript>())
             {
-                //collect energy
-                if (Vector3.Magnitude(e.transform.localPosition)<.1f) {
-                    Destroy(e.gameObject);
+                if (Vector3.Distance(activePivot.position, e.transform.position) < .6f)
+                {
+                    e.killMe = true;
                 }
             }
         }
-
+        if (GameObject.Find("EnergySpawnPoints"))
+        {
+            foreach (EnergyScript e in GameObject.Find("EnergySpawnPoints").GetComponentsInChildren<EnergyScript>())
+            {
+                if (Vector3.Distance(activePivot.position, e.transform.position) < .7f)
+                {
+                    //collect energy
+                    if (Vector3.Magnitude(e.transform.localPosition) < .1f) {
+                        Destroy(e.gameObject);
+                    }
+                }
+            }
+        }
         eText.up = Vector3.up;
         qText.up = Vector3.up;
     }
