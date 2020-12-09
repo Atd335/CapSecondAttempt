@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_AndrewScenes/IntroStage_4.unity
     guid: 93b4a01d247c1c140bd699fd35eb1df0
+  - enabled: 1
+    path: Assets/Scenes/_AndrewScenes/IntroStage_5.unity
+    guid: baeaf4e552c18974b82279a7e42e81f7
   m_configObjects: {}

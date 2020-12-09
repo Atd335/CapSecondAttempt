@@ -1813,7 +1813,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 930676431284559714, guid: b35ab6ac22872934d9bba55f6d9219ab, type: 3}
       propertyPath: nextScene
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 930676431284559715, guid: b35ab6ac22872934d9bba55f6d9219ab, type: 3}
       propertyPath: m_LocalPosition.x
