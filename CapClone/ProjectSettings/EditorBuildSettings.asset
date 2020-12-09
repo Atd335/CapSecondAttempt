@@ -9,12 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Philip_Resources/Momentum.unity
+    path: Assets/Philip_Resources/Timing.unity
     guid: ab8c3a58587aa418fb5840f75bf664ea
   - enabled: 1
     path: Assets/Philip_Resources/TightSpaces.unity
     guid: afd9d86b004e540d9b5aa95740235c93
   - enabled: 1
-    path: Assets/Philip_Resources/Timing.unity
+    path: Assets/Philip_Resources/Momentum.unity
     guid: 97b4316583aca436fa2a1014810afd09
   m_configObjects: {}

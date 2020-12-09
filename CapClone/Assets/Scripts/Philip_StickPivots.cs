@@ -30,6 +30,14 @@ public class Philip_StickPivots : MonoBehaviour
 
     RaycastHit2D hit;
 
+    // PHILIP EXCLUSIVE VARIABLES
+    public float boostSpeed;
+    public Philip_BeatBump cameraBeat;
+    public float originalCamSize;
+    public bool boosted = false;
+    public float maximumStickLength = 8f;
+    public List<GameObject> boosts;
+
     void Start()
     {
         LR = GetComponent<LineRenderer>();
@@ -60,6 +68,17 @@ public class Philip_StickPivots : MonoBehaviour
                     rotDir *= -1;
                     BGSPIN.dir *= -1;
                     flipped = true;
+                    speed = setSpeed;
+                    maximumStickLength = 8f;
+                    cameraBeat.camSize = originalCamSize;
+                    if (boosted)
+                    {
+                        for (int i = 0; i < boosts.Count; i++)
+                        {
+                            boosts[i].SetActive(true);
+                        }
+                        boosted = false;
+                    }
                 }
                 else if (stickHit.collider.tag == "energy")
                 {
@@ -69,6 +88,16 @@ public class Philip_StickPivots : MonoBehaviour
                         Destroy(stickHit.collider.gameObject);
                     }
                 }
+                else if (stickHit.collider.tag == "boost")
+                {
+                    cameraBeat.camSize += 1f;
+                    boosted = true;
+                    speed += 30f;
+                    boostSpeed = speed;
+                    maximumStickLength += 2f;
+                    boosts.Add(stickHit.collider.gameObject);
+                    stickHit.collider.gameObject.SetActive(false);
+                }
             }
             else
             {
@@ -77,12 +106,20 @@ public class Philip_StickPivots : MonoBehaviour
         }
 
         stickLength += Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
-        stickLength = Mathf.Clamp(stickLength, 1.5f, 8f);
+        stickLength = Mathf.Clamp(stickLength, 1.5f, maximumStickLength);
 
         LR.SetPosition(0, qPivot.position);
         LR.SetPosition(1, ePivot.position);
 
-        speed = Mathf.Lerp(speed, setSpeed, Time.deltaTime * dashSlow);
+        if (!boosted)
+        {
+            originalCamSize = cameraBeat.camSize;
+            speed = Mathf.Lerp(speed, setSpeed, Time.deltaTime * dashSlow);
+        }
+        else
+        {
+            speed = Mathf.Lerp(speed, boostSpeed, Time.deltaTime * dashSlow); ;
+        }
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             speed = dashSpeed;
@@ -103,7 +140,7 @@ public class Philip_StickPivots : MonoBehaviour
             //ePivot.localPosition += new Vector3(Input.GetAxis("Vertical"), 0, 0) * Time.deltaTime * scrollSpeed;
             ePivot.localPosition = new Vector3(Mathf.Lerp(ePivot.localPosition.x, stickLength, Time.deltaTime * 10), 0, 0);
 
-            if (ePivot.localPosition.x > 8) { ePivot.localPosition = new Vector3(8, 0, 0); }
+            if (ePivot.localPosition.x > maximumStickLength) { ePivot.localPosition = new Vector3(8, 0, 0); }
             if (ePivot.localPosition.x < 1.5f) { ePivot.localPosition = new Vector3(1.5f, 0, 0); }
 
             qPivot.Rotate(0, 0, speed * Time.deltaTime * rotDir);
@@ -127,7 +164,7 @@ public class Philip_StickPivots : MonoBehaviour
             //qPivot.localPosition -= new Vector3(Input.GetAxisRaw("Vertical"),0,0)*Time.deltaTime * scrollSpeed;
             qPivot.localPosition = new Vector3(Mathf.Lerp(qPivot.localPosition.x, -stickLength, Time.deltaTime * 10), 0, 0);
 
-            if (qPivot.localPosition.x < -8) { qPivot.localPosition = new Vector3(-8, 0, 0); }
+            if (qPivot.localPosition.x < -maximumStickLength) { qPivot.localPosition = new Vector3(-8, 0, 0); }
             if (qPivot.localPosition.x > -1.5f) { qPivot.localPosition = new Vector3(-1.5f, 0, 0); }
 
             ePivot.Rotate(0, 0, speed * Time.deltaTime * rotDir);

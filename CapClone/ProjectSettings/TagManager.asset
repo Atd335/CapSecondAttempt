@@ -8,6 +8,7 @@ TagManager:
   - flip
   - Enemy
   - energy
+  - boost
   layers:
   - Default
   - TransparentFX
