@@ -1511,7 +1511,9 @@ MonoBehaviour:
   scrollSpeed: 5
   rotDir: 1
   inStage: 0
-  cam: {fileID: 963194227}
+  boostSpeed: 0
+  cameraBeat: {fileID: 1504511769}
+  originalCamSize: 0
   boosted: 0
   maximumStickLength: 8
   boosts: []
@@ -1835,6 +1837,7 @@ GameObject:
   - component: {fileID: 1504511766}
   - component: {fileID: 1504511767}
   - component: {fileID: 1504511768}
+  - component: {fileID: 1504511769}
   m_Layer: 0
   m_Name: Music Player
   m_TagString: Untagged
@@ -1971,6 +1974,26 @@ MonoBehaviour:
   beatmarker: 0
   bS1: {fileID: 1291773609}
   bS2: {fileID: 719658545}
+--- !u!114 &1504511769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504511765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b350d15af89174afe88ffba0fb7e2ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  songBpm: 0
+  secPerBeat: 0
+  songPosInSec: 0
+  dspSongTime: 0
+  beatmarker: 0
+  bS1: {fileID: 0}
+  bS2: {fileID: 0}
+  camSize: 0
 --- !u!1 &1655609275
 GameObject:
   m_ObjectHideFlags: 0
