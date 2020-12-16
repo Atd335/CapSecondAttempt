@@ -10,6 +10,9 @@ TagManager:
   - energy
   - SAND
   - GOAL
+  - boost
+  - bullet
+  - boss
   layers:
   - Default
   - TransparentFX
