@@ -10,6 +10,9 @@ TagManager:
   - energy
   - SAND
   - GOAL
+  - Mutebutton
+  - SensButton
+  - sendToMain
   layers:
   - Default
   - TransparentFX
@@ -20,8 +23,8 @@ TagManager:
   - 
   - 
   - BG
-  - 
-  - 
+  - Transition
+  - PAUSE
   - 
   - 
   - 
@@ -52,4 +55,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 623057735
+    locked: 0
+  - name: PauseLayer
+    uniqueID: 4157551839
     locked: 0

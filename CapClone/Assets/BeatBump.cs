@@ -52,9 +52,12 @@ public class BeatBump : MonoBehaviour
 
         if (songPosInBeats >= beatmarker)
         {
-            bS1.localScale = Vector3.one;
-            bS2.localScale = Vector3.one;
-            if (offbeat)
+            if (Time.timeScale != 0)
+            {
+                bS1.localScale = Vector3.one;
+                bS2.localScale = Vector3.one;
+            }
+            if (offbeat && Time.timeScale!=0)
             {
                 Camera.main.orthographicSize +=.3f;
             }
