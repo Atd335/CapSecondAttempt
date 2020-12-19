@@ -57,6 +57,12 @@ public class StickPivots : MonoBehaviour
 
     void Update()
     {
+        if (scrollSpeed!=PlayerPrefs.GetFloat("ScrollSpeed"))
+        {
+            scrollSpeed = PlayerPrefs.GetFloat("ScrollSpeed");
+        }
+
+        scrollSpeed = Mathf.Clamp(scrollSpeed,1,20);
         if (Time.timeScale!=0)
         {
             if (Physics.Raycast(qPivot.position, (ePivot.position - qPivot.position), out stickHit, Vector3.Distance(qPivot.position, ePivot.position)))
@@ -90,8 +96,7 @@ public class StickPivots : MonoBehaviour
             stickLength += Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
             stickLength = Mathf.Clamp(stickLength, 1.5f, 8f);
 
-            LR.SetPosition(0, qPivot.position);
-            LR.SetPosition(1, ePivot.position);
+
 
             speed = Mathf.Lerp(speed, setSpeed, Time.deltaTime * dashSlow);
             if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -198,4 +203,10 @@ public class StickPivots : MonoBehaviour
             qText.up = Vector3.up;
         }
         }
+
+    private void LateUpdate()
+    {
+        LR.SetPosition(0, qPivot.position);
+        LR.SetPosition(1, ePivot.position);
+    }
 }

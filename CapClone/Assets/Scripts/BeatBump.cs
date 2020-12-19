@@ -54,8 +54,11 @@ public class BeatBump : MonoBehaviour
         {
             if (Time.timeScale != 0)
             {
-                bS1.localScale = Vector3.one;
-                bS2.localScale = Vector3.one;
+                if (bS1 && bS2)
+                {
+                    bS1.localScale = Vector3.one;
+                    bS2.localScale = Vector3.one;
+                }
             }
             if (offbeat && Time.timeScale!=0)
             {
@@ -64,10 +67,11 @@ public class BeatBump : MonoBehaviour
             offbeat = !offbeat;
             beatmarker++;
         }
-
-        bS1.localScale = Vector3.Lerp(bS1.localScale,Vector3.one*1.3f,Time.deltaTime * 5);
-        bS2.localScale = Vector3.Lerp(bS1.localScale,Vector3.one*1.3f,Time.deltaTime * 5);
-
+        if (bS1 && bS2)
+        {
+            bS1.localScale = Vector3.Lerp(bS1.localScale, Vector3.one * 1.3f, Time.deltaTime * 5);
+            bS2.localScale = Vector3.Lerp(bS1.localScale, Vector3.one * 1.3f, Time.deltaTime * 5);
+        }
         Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize,camSize,Time.deltaTime * 2);
     }
 }

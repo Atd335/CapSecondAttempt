@@ -49,6 +49,7 @@ public class SceneChanger : MonoBehaviour
             // add a transition effect and a score screen?
             if (scaleTimer == 1)
             {
+                PlayerPrefs.SetInt("RecentScene",nextScene);
                 GameObject.Find("TitleSceneManager(Clone)").GetComponent<TitleSceneManager>().sceneToLoad = nextScene;
                 // set the high score in playerprefs?
                 SceneManager.LoadScene("TransitionalScene");
