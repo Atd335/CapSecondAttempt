@@ -471,7 +471,7 @@ MonoBehaviour:
   speed: 0
   setSpeed: 180
   dashSpeed: 800
-  dashSlow: 3
+  dashSlow: 4.5
   scrollSpeed: 10
   rotDir: 1
   inStage: 0
