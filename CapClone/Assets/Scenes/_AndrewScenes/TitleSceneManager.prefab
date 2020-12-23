@@ -43,3 +43,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105ce253f884c0c478cb290daba94947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneToLoad: 0
+  sceneNames:
+  - '''Transition Scene'''
+  - 0-1  'Intro to Movement'
+  - 0-2 'Subtitle'
+  - 0-3 'Subtitle'
+  - 1-1 'Subtitle'
+  - 1-2 'Subtitle'
+  - 1-3 'Subtitle'
+  - 1-4 'Subtitle'
+  - 2-1 'Subtitle'
+  - 2-2 'Subtitle'
+  - 2-4 'Subtitle'
+  - 0-0 'Title Screen'
+  - 2-3 'Subtitle'
+  - 3-1 'Subtitle'
+  - 3-2 'Subtitle'
+  - x-x 'Level Selector'
+  activeName: 

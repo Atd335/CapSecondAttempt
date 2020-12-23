@@ -32,6 +32,7 @@ public class SceneChanger : MonoBehaviour
         {
             if (b.name[0] == 'S') b.color = Color.black;
         }
+        PlayerPrefs.SetInt(SceneManager.GetActiveScene().buildIndex.ToString(),1);
 }
 
     // Update is called once per frame
@@ -49,7 +50,15 @@ public class SceneChanger : MonoBehaviour
             // add a transition effect and a score screen?
             if (scaleTimer == 1)
             {
-                PlayerPrefs.SetInt("RecentScene",nextScene);
+                if (GameObject.Find("TIMER") && (PlayerPrefs.GetFloat(SceneManager.GetActiveScene().buildIndex.ToString() + "time")==0 || GameObject.Find("TIMER").GetComponent<StageTimer>().timer < PlayerPrefs.GetFloat(SceneManager.GetActiveScene().buildIndex.ToString() + "time")))
+                {
+                    PlayerPrefs.SetFloat(SceneManager.GetActiveScene().buildIndex.ToString() + "time", GameObject.Find("TIMER").GetComponent<StageTimer>().timer);
+                }
+                
+                if (nextScene!=11 && nextScene!=15 && nextScene !=0)
+                {
+                    PlayerPrefs.SetInt("RecentScene", nextScene);
+                }
                 GameObject.Find("TitleSceneManager(Clone)").GetComponent<TitleSceneManager>().sceneToLoad = nextScene;
                 // set the high score in playerprefs?
                 SceneManager.LoadScene("TransitionalScene");
